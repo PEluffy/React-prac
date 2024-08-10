@@ -19,6 +19,10 @@ function App() {
       )
     );
   }
+  function handleClearList() {
+    const confirmed = window.confirm("Are you sure you want to delete All");
+    if (confirmed) setItems([]);
+  }
 
   return (
     <div className="app">
@@ -28,6 +32,7 @@ function App() {
         items={items}
         onDelteItems={handleDeleteItems}
         onTaskComplete={onTaskComplete}
+        onClearList={handleClearList}
       />
       <Review items={items} />
     </div>
