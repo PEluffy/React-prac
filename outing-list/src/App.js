@@ -29,7 +29,7 @@ function App() {
         onDelteItems={handleDeleteItems}
         onTaskComplete={onTaskComplete}
       />
-      <Review />
+      <Review items={items} />
     </div>
   );
 }
