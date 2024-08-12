@@ -1,0 +1,16 @@
+.acc {
+  width: 400px;
+  display: flex;
+  box-shadow: 5px 5px 15px rgb(232, 230, 230);
+  margin: 10px;
+  padding: 20px;
+  justify-content: space-between;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ques-ans {
+  max-width: 300px;
+}
