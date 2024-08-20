@@ -18,6 +18,20 @@ function Accordion({ faqs }) {
             {faq.text}
           </AccordionItem>
         ))}
+        <AccordionItem
+          curOpen={curOpen}
+          onOpen={setCurOpen}
+          title="test 1"
+          num={22}
+          key={"test 1"}
+        >
+          <p>happy birthday to yo </p>
+          <ul>
+            <li>happy</li>
+            <li>donkey</li>
+            <li>money</li>
+          </ul>
+        </AccordionItem>
       </div>
     </div>
   );

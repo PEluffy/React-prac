@@ -22,6 +22,7 @@ function App() {
   return (
     <div className="App">
       <Accordion faqs={faqs} />
+      
     </div>
   );
 }
