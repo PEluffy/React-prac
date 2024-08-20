@@ -14,3 +14,13 @@
 .ques-ans {
   max-width: 300px;
 }
+.open {
+  border-top: solid green;
+}
+.open *:not(.ques-ans):not(.ans) {
+  color: green;
+}
+.open .title,
+.open .num {
+  font-size: 18px;
+}

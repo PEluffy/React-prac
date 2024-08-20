@@ -1,12 +1,18 @@
+import { useState } from "react";
+
 function AccordionItem({ title, text, num }) {
+  const [isOpen, setIsOpen] = useState(false);
+  function handleToogle() {
+    setIsOpen((isOpen) => !isOpen);
+  }
   return (
-    <div className="acc">
-      <span>{num >= 0 ? `0${num + 1}` : `${num + 1}`}</span>
+    <div className={`acc ${isOpen ? "open" : ""}`} onClick={handleToogle}>
+      <span className="num">{num >= 0 ? `0${num + 1}` : `${num + 1}`}</span>
       <div className="ques-ans">
-        <div>{title}</div>
-        <p>{text}</p>
+        <div className="title">{title}</div>
+        {isOpen ? <p className="ans">{text}</p> : ""}
       </div>
-      <span>-</span>
+      <span>{isOpen ? "+" : "-"}</span>
     </div>
   );
 }
