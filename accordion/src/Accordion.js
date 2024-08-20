@@ -1,11 +1,22 @@
 import AccordionItem from "./AccordionItem";
+import { useState } from "react";
 
 function Accordion({ faqs }) {
+  const [curOpen, setCurOpen] = useState(null);
+
   return (
     <div className="container">
       <div className="acc-cont">
         {faqs.map((faq, i) => (
-          <AccordionItem title={faq.title} text={faq.text} num={i} key={i} />
+          <AccordionItem
+            curOpen={curOpen}
+            onOpen={setCurOpen}
+            title={faq.title}
+            num={i}
+            key={i}
+          >
+            {faq.text}
+          </AccordionItem>
         ))}
       </div>
     </div>
