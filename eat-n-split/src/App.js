@@ -48,6 +48,7 @@ function App() {
           : friend
       )
     );
+    setSelectedFriend(null);
   }
   return (
     <div className="app">
@@ -168,9 +169,6 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
     e.preventDefault();
     if (!bill || !paidByUser) return;
     onSplitBill(payer === "user" ? paidByFriend : -paidByUser);
-    setBill("");
-    setPaidByUser("");
-    setPayer("user");
   }
 
   return (
