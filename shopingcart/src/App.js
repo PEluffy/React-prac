@@ -29,12 +29,16 @@ const products = [
 
 function App() {
   const [cart, setCart] = useState([]);
-
+  const [purchased, setPurchased] = useState([]);
   const addToCart = (product) => {
     setCart((cart) => [...cart, product]);
   };
 
   const total = cart.reduce((acc, product) => acc + product.price, 0);
+  function handleCheckout(total) {
+    setPurchased((curr) => [...curr, total]);
+    setCart([]);
+  }
 
   return (
     <div className="container">
@@ -46,11 +50,22 @@ function App() {
           <Product key={product.id} product={product} addToCart={addToCart} />
         ))}
       </div>
-      {cart.length > 0 && <CartList total={total} cart={cart} />}
+      {cart.length > 0 && (
+        <CartList total={total} cart={cart} handleCheckout={handleCheckout} />
+      )}
+      {purchased.length > 0 &&
+        purchased.map((purchase, index) => (
+          <div key={index}>
+            {purchase}$ was your {index + 1}st purchase
+          </div>
+        ))}
     </div>
   );
 }
-function CartList({ total, cart }) {
+function CartList({ total, cart, handleCheckout }) {
+  function onClickCheckout() {
+    handleCheckout(total);
+  }
   return (
     <div className="cart">
       <h2>Shopping Cart</h2>
@@ -62,7 +77,9 @@ function CartList({ total, cart }) {
         ))}
       </ul>
       <p>Total: ${total.toFixed(2)}</p>
-      <button className="button">Checkout</button>
+      <button className="button" onClick={onClickCheckout}>
+        Checkout
+      </button>
     </div>
   );
 }
