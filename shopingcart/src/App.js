@@ -39,6 +39,9 @@ function App() {
     setPurchased((curr) => [...curr, total]);
     setCart([]);
   }
+  function handleRemoveItem(item) {
+    setCart((cart) => cart.filter((cartItem) => cartItem.id !== item.id));
+  }
 
   return (
     <div className="container">
@@ -51,21 +54,27 @@ function App() {
         ))}
       </div>
       {cart.length > 0 && (
-        <CartList total={total} cart={cart} handleCheckout={handleCheckout} />
+        <CartList
+          total={total}
+          cart={cart}
+          handleCheckout={handleCheckout}
+          handleRemoveItem={handleRemoveItem}
+        />
       )}
       {purchased.length > 0 &&
         purchased.map((purchase, index) => (
-          <div key={index}>
+          <div key={index} className="red">
             {purchase}$ was your {index + 1}st purchase
           </div>
         ))}
     </div>
   );
 }
-function CartList({ total, cart, handleCheckout }) {
+function CartList({ total, cart, handleCheckout, handleRemoveItem }) {
   function onClickCheckout() {
     handleCheckout(total);
   }
+
   return (
     <div className="cart">
       <h2>Shopping Cart</h2>
@@ -73,6 +82,9 @@ function CartList({ total, cart, handleCheckout }) {
         {cart.map((item, index) => (
           <li key={index}>
             {item.name} - ${item.price.toFixed(2)}
+            <span className="red" onClick={() => handleRemoveItem(item)}>
+              X
+            </span>
           </li>
         ))}
       </ul>

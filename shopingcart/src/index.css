@@ -78,6 +78,11 @@
 .button:hover {
   background-color: #0056b3;
 }
+.red {
+  color: red;
+  margin-left: 40px;
+  cursor: pointer;
+}
 
 .cart {
   margin-top: 20px;
