@@ -53,20 +53,21 @@ function App() {
           <Product key={product.id} product={product} addToCart={addToCart} />
         ))}
       </div>
-      {cart.length > 0 && (
+      {cart.length > 0 ? (
         <CartList
           total={total}
           cart={cart}
           handleCheckout={handleCheckout}
           handleRemoveItem={handleRemoveItem}
         />
-      )}
-      {purchased.length > 0 &&
+      ) : (
+        purchased.length > 0 &&
         purchased.map((purchase, index) => (
           <div key={index} className="red">
             {purchase}$ was your {index + 1}st purchase
           </div>
-        ))}
+        ))
+      )}
     </div>
   );
 }
@@ -88,7 +89,7 @@ function CartList({ total, cart, handleCheckout, handleRemoveItem }) {
           </li>
         ))}
       </ul>
-      <p>Total: ${total.toFixed(2)}</p>
+      <p className="total">Total: ${total.toFixed(2)}</p>
       <button className="button" onClick={onClickCheckout}>
         Checkout
       </button>
