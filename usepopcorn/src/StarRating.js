@@ -16,7 +16,6 @@ StarRating.propTypes = {
   color: PropTypes.string,
   messages: PropTypes.array,
   className: PropTypes.string,
-  onSetRating: PropTypes.func,
 };
 
 export default function StarRating({
