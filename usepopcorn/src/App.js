@@ -264,6 +264,31 @@ function MovieDetails({ selectedId, handleCloseMovie, onAddWatched, watched }) {
     },
     [selectedId]
   );
+
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `Movie | ${title}`;
+      return function () {
+        document.title = "usePopcorn";
+      };
+    },
+    [title]
+  );
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.code === "Escape") {
+          handleCloseMovie();
+        }
+      }
+      document.addEventListener("keydown", callback);
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [handleCloseMovie]
+  );
   return (
     <div className="details">
       {isLoading ? (
@@ -348,12 +373,14 @@ export default function App() {
 
   useEffect(
     function () {
+      const controller = new AbortController();
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
           );
           if (!res.ok)
             throw new Error("Something went wrong while fetching data ");
@@ -361,11 +388,15 @@ export default function App() {
 
           if (data.Response === "False") throw new Error("Movie not Found");
           setMovies(data.Search);
+          setError("");
           console.log(data);
         } catch (err) {
           setMovies([]);
+
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
           console.error(err.message);
-          setError(err.message);
         } finally {
           setIsLoading(false);
         }
@@ -375,11 +406,14 @@ export default function App() {
         setError("");
         return;
       }
+      handleCloseMovie();
       fetchMovies();
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );
-
   return (
     <>
       <NavBar>
