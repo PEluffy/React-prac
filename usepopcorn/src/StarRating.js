@@ -29,6 +29,7 @@ export default function StarRating({
 }) {
   const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
+
   const textStyle = {
     lineHeight: "1",
     margin: "0",
@@ -39,6 +40,7 @@ export default function StarRating({
     setRating(rating);
     onSetRating(rating);
   }
+
   return (
     <div style={containerStyle} className={clasName}>
       <div style={starContainerStyle}>
